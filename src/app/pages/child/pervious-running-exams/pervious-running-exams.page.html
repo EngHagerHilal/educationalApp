@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-text>{{'PREVIOUSPAGE.header_running' |translate}}</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="app-previous">
+  <!-- skelton loading -->
+  <div *ngIf="isLoading" class="content">
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngFor="let card of exams; index as i" class="content">
+      <ion-row>
+        <ion-col size="5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+        <ion-col>: {{card.subjectTitle |titlecase}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+        <ion-col>: {{card.unitTitle |titlecase}} / {{card.lessonTitle |titlecase}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">{{'PREVIOUSPAGE.start_at' |translate}}</ion-col>
+        <ion-col>: {{card.start_at |date: 'MMM d, y-HH:mma'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">{{'PREVIOUSPAGE.end_at' |translate}}</ion-col>
+        <ion-col>: {{card.end_at |date: 'MMM d, y-HH:mma'}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">{{'PREVIOUSPAGE.degree' |translate}}</ion-col>
+        <ion-col>: {{card.result}} / {{card.max_result}}</ion-col>
+        <ion-col *ngIf="indexSelected != i">
+          <a (click)="isOpen = true; indexSelected = i">
+            {{'PREVIOUSPAGE.more' |translate}}
+            <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+          </a>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="isOpen && indexSelected == i">
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.from' |translate}}</ion-col>
+          <ion-col>: {{card.exam.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.to' |translate}}</ion-col>
+          <ion-col>: {{card.exam.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'PREVIOUSPAGE.time_spent' |translate}}</ion-col>
+          <ion-col>: {{card.duration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+          <ion-col>
+            <a (click)="isOpen = false; indexSelected = -1">
+              {{'PREVIOUSPAGE.less' |translate}}
+              <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+            </a>
+          </ion-col>
+        </ion-row>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
+    <ion-fab>
+      <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
+        <ion-icon name="menu"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-menu-button>
+</ion-content>

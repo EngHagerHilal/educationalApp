@@ -1,0 +1,29 @@
+frst view
+-------------
+last news, content ---> black
+header ==> darkslategrey
+cards ==> background: linear-gradient(to right, #5757566b, #a9e9d0);
+----------------------------------------------------------------------------
+
+view2
+-------------
+last news---> white
+header ==> gray
+header ==> darkcyan
+cards ==> background: linear-gradient(to right, #5757564a, #f5f6f947);
+----------------------------------------------------------------------------
+
+black and gary
+---------------
+last news---> white
+header ==> goldenrod
+content ==> currentColor
+cards ==> background: #6666661a
+
+content ==> --background: #1e1e1e;
+----------------------------------------------------------------------------
+
+2.1
+-------
+content ==> burlywood
+cards ==> background: darkslategray

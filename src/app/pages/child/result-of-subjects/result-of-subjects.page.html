@@ -1,0 +1,162 @@
+<!-- <ion-header class="ion-no-border" *ngIf="searchClicked">
+  <ion-toolbar (click)="searchClicked = !searchClicked">
+    <ion-text style="font-size: medium;">{{'RESULTSSUBJECTS.result_title' |translate}}</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form class="container form" *ngIf="!searchClicked">
+  <h5>{{'RESULTSSUBJECTS.form_title' |translate}}</h5>
+    <ion-item>
+      <ion-label>{{'RESULTSSUBJECTS.semester' |translate}}</ion-label>
+      <ion-select value="notifications" interface="action-sheet">
+        <ion-select-option value="First">First semester</ion-select-option>
+        <ion-select-option value="Second">Second semester</ion-select-option>
+        <ion-select-option value="Third">Third semester</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="margin-top: 5px;">
+      <ion-label>{{'RESULTSSUBJECTS.subjects' |translate}}</ion-label>
+      <ion-select ok-text="Okay" cancel-text="Nah">
+        <ion-select-option value="nes">All subjects</ion-select-option>
+        <ion-select-option value="n64">Nintendo64</ion-select-option>
+        <ion-select-option value="ps">PlayStation</ion-select-option>
+        <ion-select-option value="genesis">Sega Genesis</ion-select-option>
+        <ion-select-option value="saturn">Sega Saturn</ion-select-option>
+        <ion-select-option value="snes">SNES</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="ion-text-center submit">
+      <ion-button color="basecolor" fill="outline" (click)="searchClicked = !searchClicked">
+        {{'RESULTSSUBJECTS.butt_preview' |translate}}</ion-button>
+    </div>
+  </form>
+
+  <div class="list" *ngIf="searchClicked">
+    <div *ngFor="let subject of subjects" (click)="subject.open = !subject.open" class="row">
+      <ion-item *ngIf="subject.open" [class]="'activeSubject'">
+        <ion-label>{{subject?.title}}</ion-label>
+        <ion-icon slot="end" name="arrow-up"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="!subject.open" [class]="'subjects'">
+        <ion-label>{{subject?.title}}</ion-label>
+        <ion-icon slot="end" name="arrow-down"></ion-icon>
+      </ion-item>
+      <div class="details" *ngIf="subject.open">
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.bounce' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.attitude' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.homework' |translate}}</ion-col>
+          <ion-col>: 7.5</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.attendance' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.running' |translate}}</ion-col>
+          <ion-col>: 5.88</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.final' |translate}}</ion-col>
+          <ion-col>: 35</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.participation' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.project' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.sum' |translate}}</ion-col>
+          <ion-col>: 48.38</ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+
+  <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
+    <ion-fab>
+      <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
+        <ion-icon name="menu"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+  </ion-menu-button>
+</ion-content> -->
+
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-text style="font-size: medium;">{{'RESULTSSUBJECTS.result_title' |translate}}</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="list">
+    <div *ngFor="let subject of subjects" (click)="subject.open = !subject.open" class="row">
+      <ion-item *ngIf="subject.open" [class]="'activeSubject'">
+        <ion-label>{{subject?.title}}</ion-label>
+        <ion-icon slot="end" name="arrow-up"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="!subject.open" [class]="'subjects'">
+        <ion-label>{{subject?.title}}</ion-label>
+        <ion-icon slot="end" name="arrow-down"></ion-icon>
+      </ion-item>
+      <div class="details" *ngIf="subject.open">
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.bounce' |translate}}</ion-col>
+          <ion-col>: {{subject?.bounce}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.attitude' |translate}}</ion-col>
+          <ion-col>: {{subject?.Attitude}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.homework' |translate}}</ion-col>
+          <ion-col>: {{subject?.Homework}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.attendance' |translate}}</ion-col>
+          <ion-col>: {{subject?.Attendance}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.running' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.final' |translate}}</ion-col>
+          <ion-col>: {{subject?.FinalExam}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.participation' |translate}}</ion-col>
+          <ion-col>: {{subject?.Participation}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.project' |translate}}</ion-col>
+          <ion-col>: {{subject?.Project}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'RESULTSSUBJECTS.sum' |translate}}</ion-col>
+          <ion-col>: {{'RESULTSSUBJECTS.not_assigned' |translate}}</ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+
+  <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
+    <ion-fab>
+      <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
+        <ion-icon name="menu"></ion-icon>
+      </ion-fab-button>
+  </ion-fab>
+  </ion-menu-button>
+</ion-content>

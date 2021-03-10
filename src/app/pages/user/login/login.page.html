@@ -1,0 +1,93 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="app-login">
+  <div class="container">
+    <div>
+      <img src="./../../../../assets/logo.png" style="width: 165px;
+  height: 175px;">
+    </div>
+
+    <div *ngIf="!isForget">
+
+      <form #flogin="ngForm">
+        <ion-item>
+          <ion-label position="stacked">{{'LOGIN.email' |translate}}</ion-label>
+          <ion-input type="text" required [(ngModel)]="form.email" #email="ngModel" name="email"
+            ></ion-input>
+            <!-- pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" -->
+        </ion-item>
+        <div class="ion-text-center" *ngIf="email.touched && (email.errors?.required || email.errors?.pattern)">
+          <ion-note *ngIf="email.errors?.required">{{'LOGIN.email_required' | translate}}</ion-note>
+          <ion-note *ngIf="email.errors?.pattern">
+            {{'LOGIN.email_invalid' | translate}}
+          </ion-note>
+        </div>
+
+        <ion-item style="margin-top: 7px;">
+          <ion-label position="stacked">{{'LOGIN.password' |translate}}</ion-label>
+          <ion-input type="password" required [(ngModel)]="form.password" #pass="ngModel" name="password"></ion-input>
+        </ion-item>
+        <div class="ion-text-center" *ngIf="pass.touched && pass.errors?.required">
+          <ion-note>{{'LOGIN.password_required' | translate}}</ion-note>
+        </div>
+      </form>
+
+      <div class="ion-text-center">
+        <ion-button class="buttons" (click)="login()"
+          [disabled]="flogin.invalid || isClicked">
+          <ion-spinner slot="start" name="lines-small" *ngIf="isClicked"></ion-spinner>
+          {{'LOGIN.butt_log' |translate}}
+        </ion-button>
+        <ion-button type="button" fill="outline" color="medium" (click)="this.isForget = !this.isForget"
+          [disabled]="isClicked"> {{'LOGIN.butt_forget' |translate}}
+        </ion-button>
+      </div>
+    </div>
+
+    <div *ngIf="isForget">
+      <form #freset="ngForm">
+        <ion-item>
+          <ion-label position="stacked">{{'LOGIN.email' |translate}}</ion-label>
+          <ion-input type="text" required [(ngModel)]="form.email" #email="ngModel" name="email"
+            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"></ion-input>
+        </ion-item>
+        <div class="ion-text-center" *ngIf="email.touched && (email.errors?.required || email.errors?.pattern)">
+          <ion-note *ngIf="email.errors?.required">{{'LOGIN.email_required' | translate}}</ion-note>
+          <ion-note *ngIf="email.errors?.pattern">
+            {{'LOGIN.email_invalid' | translate}}
+          </ion-note>
+        </div>
+      </form>
+
+      <div class="ion-text-center">
+        <ion-button routerLink="/user/login" routerDirection="forward" class="buttons">
+          {{'LOGIN.butt_reset' |translate}}
+        </ion-button><br>
+        <ion-button type="button" fill="outline" color="medium" (click)="this.isForget = !this.isForget">
+          {{'LOGIN.butt_back' |translate}}
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);">
+      <ion-icon name="globe"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="changeLanguage('ar')"
+        [style.--background]="language.selected == 'ar'? 'var(--ion-color-basecolor)': ''">
+        <b>عربى</b>
+      </ion-fab-button>
+      <ion-fab-button (click)="changeLanguage('en')"
+        [style.--background]="language.selected == 'en'? 'var(--ion-color-basecolor)': ''">
+        <b>EN</b>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

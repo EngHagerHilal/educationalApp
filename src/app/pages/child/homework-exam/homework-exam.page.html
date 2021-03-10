@@ -1,0 +1,155 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>simulateExam</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="app-exam">
+  <!-- questions list -->
+    <div class="contentData">
+      <ion-list>
+        <div *ngFor="let question of questions; index as questionIndex">
+          <!-- checkbox multiple choose -->
+          <div class="quetion" *ngIf="question.type == 'multiple_choice'">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item *ngFor="let choice of question.nestedQuestions[0]?.answers">
+              <ion-checkbox #checkInput color="success" slot="start" [value]="choice.id"
+              (ionChange)="setAnswer(questionIndex, question.id, checkInput.value, question.type)"></ion-checkbox>
+              <ion-label>{{choice?.text}}</ion-label>
+            </ion-item>
+          </div>
+    
+          <!-- select choose -->
+          <div class="quetion" *ngIf="question.type == ''">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item *ngFor="let choice of question.nestedQuestions[0]?.answers">
+              <ion-radio color="success" slot="start"></ion-radio>
+              <ion-label>{{choice?.text}}</ion-label>
+            </ion-item>
+          </div>
+          
+          <!-- radioButton true&false -->
+          <div class="quetion" *ngIf="question.type == 'true_false'">
+            <ion-radio-group #radioInput (ionChange)="setAnswer(questionIndex, question.id, radioInput.value , question.type)">
+              <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+              <ion-row style="background: white;">
+                <ion-col>
+                  <ion-item style="--inner-border-width: 0 0 0px 0;">
+                    <ion-radio color="success" slot="start" value="1"></ion-radio>
+                    <ion-label>{{'EXAMPAGE.true' |translate}}</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item style="--inner-border-width: 0 0 0px 0;">
+                    <ion-radio color="success" slot="start" value="0"></ion-radio>
+                    <ion-label>{{'EXAMPAGE.false' |translate}}</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </div>
+    
+          <!-- textarea essay -->
+          <div class="quetion" *ngIf="question.type == 'essay'">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item>
+              <ion-label position="stacked" class="essay">{{'EXAMPAGE.yourAnswer' |translate}}</ion-label>
+              <ion-textarea #textAreaInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, textAreaInput.value , question.type)"></ion-textarea>
+            </ion-item>
+          </div>
+    
+          <!-- input Exact question -->
+          <div class="quetion" *ngIf="question.type == 'exact_answer'">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item>
+              <ion-label position="stacked" class="essay">{{'EXAMPAGE.exactWord' |translate}}</ion-label>
+              <ion-input #exactInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, exactInput.value , question.type)"></ion-input>
+            </ion-item>
+          </div>
+    
+          <!-- steps question -->
+          <div class="quetion" *ngIf="question.type == 'steps'">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item *ngFor="let text of question.nestedQuestions[0]?.answers">
+              <ion-label position="stacked" class="essay">{{text.hint_text}}</ion-label>
+              <ion-input #stepsInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, stepsInput.value , question.type, text.id)"></ion-input>
+            </ion-item>
+          </div>
+    
+          <!-- Picture question -->
+          <div class="quetion" *ngIf="question.type == 'picture'">
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <div class="ion-text-center">
+              <img src="{{imgUrl}}{{question.nestedQuestions[0]?.picture}}" style="width: 260px;
+                  height: 210px;
+                  border-radius: 3px;">
+            </div>
+            <ion-item *ngFor="let text of question.nestedQuestions[0]?.points; index as i">
+              <ion-label position="stacked" class="essay">{{text.marker}}</ion-label>
+              <ion-input #pictureInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, pictureInput.value , question.type, text.id)"></ion-input>
+            </ion-item>
+          </div>
+    
+          <!-- Correct question -->
+          <div class="quetion correct" *ngIf="question.type == 'correct'">
+            <div class="desQuestion">
+              <b [innerHTML]="question.text"></b>
+            </div>
+            <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
+            <ion-item>
+              <ion-label position="stacked" class="essay">{{'EXAMPAGE.wrong' |translate}}</ion-label>
+              <ion-input #wrongInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, wrongInput.value , question.type)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" class="essay">{{'EXAMPAGE.correct' |translate}}</ion-label>
+              <ion-input #correctInput type="text"
+              (ionBlur)="setAnswer(questionIndex, question.id, wrongInput.value , question.type, correctInput.value)"></ion-input>
+            </ion-item>
+          </div>
+    
+          <!-- matching question -->
+          <div class="quetion matching" *ngIf="question.type == 'complete_with_options'">
+            <ion-list-header [innerHTML]="question.text"></ion-list-header>
+            <p class="sentences">
+              <span *ngFor="let qu of question?.nestedQuestions; index as i">
+                <div style="margin-bottom: 3px;">{{qu.id}}- {{qu.text}} </div>
+              </span>
+            </p>
+    
+            <ion-item *ngFor="let an of question?.answer_points; index as i">
+              <ion-row class="ion-align-items-center" style="width: 100%;">
+                <ion-col size="2">
+                  <ion-input #matchingInput type="number" style="background: lavender;
+                        border-radius: 7px; color: #95C11F; font-weight: bold; text-align: center;"
+                        (ionBlur)="setAnswer(questionIndex, question.id, matchingInput.value , question.type, an.id)"></ion-input>
+                </ion-col>
+                <ion-col size="9">
+                  <p style="margin: 0px;">{{an.text}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+          </div>
+        </div>
+    
+      </ion-list>
+    </div>
+  
+    <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
+      <ion-fab>
+      <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
+        <ion-icon name="menu"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    </ion-menu-button>
+  </ion-content>
+  
+  <ion-footer *ngIf="this.questions.length > 0">
+    <ion-button expand="block" shape="round" style="--background: cadetblue;" (click)="submit()"
+    [disabled]="isSubmitting">{{'EXAMPAGE.submit' |translate}}</ion-button>
+  </ion-footer>
+  

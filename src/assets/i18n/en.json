@@ -1,0 +1,158 @@
+{
+    "MENU" :{
+        "homePage": "Home",
+
+        "finalexams" : "Final exams",
+        "newfinalexams" : "New exams list",
+        "previousfinalexams" : "Previous exams list",
+        "runningexams" : "Running exams",
+        "newrunningexams" : "New running exams list",
+        "previousrunningexams" : "Previous running exams list",
+        "homework" : "Homework",
+        "newhomework" : "New homework list",
+        "previoushomework" : "Previous homework list",
+        "simulateexam" : "Simulate an exam",
+        "results" : "Subjects result of student",
+
+        "child_header": "My children",
+
+        "adding_alert_header": "Adding new child",
+        "adding_alert_message": "Please, enter the code of child that you got by teacher !!",
+        "adding_alert_code": "Child Code...",
+        "adding_alert_add": "Add",
+        "adding_alert_cancel": "Cancel"
+    },
+
+    "LOGIN":{
+        "email" : "Email address",
+        "userName" : "User name",
+        "uName_invalid" : "Please enter your user name",
+        "email_required" : "Please enter your email address",
+        "email_invalid" : "Please enter a valid email address",
+        "password" : "Password",
+        "password_required" : "Please enter your password",
+        "butt_log" : "login",
+        "butt_register" : "new member ?",
+        "butt_forget" : "Forget password ?",
+        "butt_reset" : "reset password",
+        "butt_resend" : "Resend verification email",
+        "butt_back" : "back to login"
+    },
+
+    "COIMGPAGE": {
+        "header": "New final exams list",
+        "header_running": "New running exams list",
+        "header_home": "New homeworks list",
+        "card_content": "An <b>{{title}}</b> will be 12-2-2021 at 18:00 to 18:00. you can enter from 17:55 to quiz URL <a href='h'>exam@test.com</a> . be careful of the time and good luck for all, insha`allah.",
+        "subject_name": "Subject name",
+        "from": "From",
+        "to": "To",
+        "duration": "Duration",
+        "min": "min",
+        "link": "Link exam",
+        "linkHomework": "Link Homework",
+        "computing": "Degrees computed",
+        "clickHere": "Click here"
+    },
+
+    "PREVIOUSPAGE": {
+        "header": "Previous final exams list",
+        "header_running": "Previous running exams list",
+        "header_home": "Previous homeworks list",
+        "card_content": "The <b>{{title}}</b> was held on 02-12-2021 at 18:00, and You successfully participated in it, but the result has not yet appeared.",
+        "start_at": "Exam started",
+        "end_at": "Exam ended",
+        "degree": "Exam degree",
+        "time_spent": "Time spent",
+        "lesson": "Lesson",
+        "unit": "Unit",
+        "more": "more",
+        "less": "less"
+    },
+
+    "EXAMPAGE": {
+        "true": "True",
+        "false": "False",
+
+        "wrong": "The wrong word",
+        "correct": "The correct word",
+        "yourAnswer": "Your answer",
+        "exactWord": "Suitable word",
+        "submit": "Submit"
+    },
+
+    "CHILDPROFILE": {
+        "coming": "Coming",
+        "previous": "Previous",
+
+        "info_header": "General Information",
+        "courses_header": "Courses list"
+    },
+
+    "MYPROFILE": {
+        "edit_alert_header": "Edit profile",
+        "edit_alert_message": "You can only change your password !!",
+        "edit_alert_current": "Current password",
+        "edit_alert_new": "New password",
+        "edit_alert_confirm": "Confirm new password",
+        "edit_alert_Bedit": "Edit"
+    },
+
+    "RESULTSSUBJECTS": {
+        "form_title": "Student result in Subjects",
+        "semester": "Semester",
+        "subjects": "Subjects",
+        "result_title": "Results of: all subjects, in current semester",
+        "butt_preview": "Preview",
+
+        "bounce": "Bounce",
+        "attitude": "Attitude ratio",
+        "homework": "Homework",
+        "attendance": "Attendance ratio",
+        "running": "Running exams",
+        "final": "Final exams",
+        "sum": "Sum",
+        "participation": "Participation",
+        "project": "Project",
+        "not_assigned": "Not assigned yet"
+    },
+
+    "SIMULATEPAGE": {
+        "radio_alert_header": "The subject",
+        "radio_alert_massege": "Choose the subject you want to simulate !!",
+        "radio_alert_next": "Next",
+
+        "num_alert_header": "Number of question",
+        "num_alert_massege": "Please, Write the number of questions you want to simulate. Note: it must be more than one !!",
+        "num_alert_placeholder": "Number",
+        "num_alert_validation": "The number of questions must be specified and greater than one",
+        "num_alert_simulate": "Simulate",
+        "num_alert_back": "Back",
+
+        "result_alert_header": "Your exam grade",
+        "result_alert_message": "Your exam submitted successfully, your grade {{student}} / {{final}} !!",
+        "num_alert_close": "Close",
+        "num_alert_again": "Other exam"
+    },
+
+    "TOASTMESSAGES":{
+        "resetPassword_success": "Email sent successfully!! Please check your email address inbox!!",
+        "notAllowedGuard": "You are not allowed to access this page!!",
+        "isloginGuard": "You must be logged in first to allow access to this page!!",
+        
+        "please_wait": "Please wait....",
+        "login_faild": "The data you entered is incorrect. Please check your email address and password , then try again !!",
+        "change_password_success": "Your password has been changed successfully !!",
+        "change_password_failed": "Sorry, your password has not been changed. please try again later !",
+        "change_password_required_alert": "You must enter your currnet, new and confirm new passwords to change currnet password!",
+        "change_same_passwords_alert" : "The current and new passwords are the same !!",
+        "change_not_match_length_alert": "Confirm the new password and the new password do not match, or less than 8 characters !!",
+        "change_current_not_match_alert": "The current password is incorrect !!",
+
+        "simulate_noQuestions": "Sorry, no questions have been added to this subject, you can try another subject !!",
+        "server_problem": "Sorry, we have some updates in system, please try again later !!",
+
+        "submite_exam": "Your answers have been successfully sent, we wish you success !!",
+        "timeOut_exam": "The time set for the exam has expired, your answers have been successfully sent until now. We wish you success !!"
+    }
+}

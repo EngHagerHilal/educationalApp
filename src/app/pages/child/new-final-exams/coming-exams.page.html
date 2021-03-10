@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-text>{{'COIMGPAGE.header' |translate}}</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="app-coming">
+  <!-- skelton loading -->
+  <div *ngIf="isLoading" class="content">
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-row>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngFor="let card of exams" class="content">
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+          <ion-col>: {{card.subjectTitle |titlecase}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.from' |translate}}</ion-col>
+          <ion-col>: {{card.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.to' |translate}}</ion-col>
+          <ion-col>: {{card.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+          <ion-col>: {{card.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">{{'COIMGPAGE.link' |translate}}</ion-col>
+          <ion-col>: <a [routerLink]="['/child/exam', card.id, 'final']" routerDirection="root">
+            {{'COIMGPAGE.clickHere' |translate}}</a></ion-col>
+        </ion-row>
+        <hr>
+      </div>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
+    <ion-fab>
+    <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
+      <ion-icon name="menu"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  </ion-menu-button>
+</ion-content>

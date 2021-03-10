@@ -1,0 +1,38 @@
+.app-login{
+    //--background: url('../../assets/background.jpg');
+    --background: lightgray;
+    .container {
+        text-align: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 40%;
+        transform: translateY(-50%);
+      }
+      form{
+        padding: 15px;
+        ion-item{
+            border-radius: 25px;
+            --highlight-background: #95C11F;
+            ion-label{
+                color: #95C11F;
+                font-weight: bold;
+            }
+            ion-input{
+                color: #575756;
+            }
+        }
+      }
+      .buttons{
+            --background: cadetblue;
+      }
+}
+.item-highlight{
+    background: #95C11F;
+}
+ion-menu-button {
+    margin-inline-start: 10px;
+    bottom: 10px;
+    height: 48px;
+    width: 48px;
+  }

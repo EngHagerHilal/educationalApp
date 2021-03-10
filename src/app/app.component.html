@@ -1,0 +1,176 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" *ngIf="language.selected == 'ar'">
+    <ion-menu id="myMenu" contentId="main-content" type="overlay" side='start'>
+      <ion-content>
+        <div class="header">
+          <div class="content">
+            <ion-avatar>
+            <img src="../assets/logo2.PNG">
+          </ion-avatar>
+          <ion-list-header>{{auth.userData?.name}}</ion-list-header>
+          <ion-note>{{auth.userData?.email}}</ion-note>
+          </div>
+        </div>
+        
+        <ion-list id="inbox-list">
+
+          <div *ngFor="let p of appPages; let i = index">
+            <ion-menu-toggle auto-hide="false" *ngIf="p.url">
+              <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                [class.selected]="selectedIndex == i">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title |translate}}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+            <ion-item *ngIf="p.children?.length > 0" (click)="p.open = !p.open" lines="none" detail="false"
+              [class.selected]="selectedIndex == i">
+              <ion-icon slot="start" name="arrow-forward" *ngIf="!p.open"></ion-icon>
+              <ion-icon slot="start" name="arrow-down" *ngIf="p.open"></ion-icon>
+              <ion-label>{{ p.title |translate}}</ion-label>
+            </ion-item>
+
+            <div *ngIf="p.open" class="children">
+              <ion-menu-toggle auto-hide="false">
+                <ion-item *ngFor="let sub of p.children; let iSub = index" (click)="selectedIndex = i; SubselectedIndex = iSub" routerDirection="root" [routerLink]="[sub.url]" lines="none"
+                  detail="false" [class.selected]="selectedIndex == i && SubselectedIndex == iSub"  class="sub-item">
+                  <ion-icon slot="start" [name]="sub.icon"></ion-icon>
+                  <ion-label>{{ sub.title |translate}}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </div>
+          </div>
+          <ion-item style="--inner-border-width: 0 0 0px 0;" (click)="student.logOut()">
+            <ion-icon slot="start" name="arrow-forward"></ion-icon>
+            <ion-label>تسجيـل الخـروج</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- parent part -->
+        <!-- <ion-list id="labels-list">
+          <ion-row size="9">
+            <ion-col><ion-list-header>{{ 'MENU.child_header'  |translate}}</ion-list-header></ion-col>
+            
+            <ion-col size="2.5">
+              <ion-buttons>
+                <ion-button size="small"
+                (click)="presentAlertAdd()">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+                </ion-buttons>
+            </ion-col>
+          </ion-row>
+          <ion-menu-toggle auto-hide="false"  *ngFor="let child of children">
+            <ion-item lines="none" routerDirection="root" [routerLink]="['parents/chlidProfile']">
+              <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+              <ion-label>{{ child }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list> -->
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);">
+            <ion-icon name="globe"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="top">
+            <ion-fab-button (click)="changeLanguage('ar')" [style.--background]="language.selected == 'ar'? 'var(--ion-color-basecolor)': ''">
+              <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+              <b>عربى</b>
+            </ion-fab-button>
+            <ion-fab-button (click)="changeLanguage('en')" [style.--background]="language.selected == 'en'? 'var(--ion-color-basecolor)': ''">
+              <b>EN</b>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+
+  <ion-split-pane contentId="main-content" *ngIf="language.selected == 'en'">
+    <ion-menu id="myMenu" contentId="main-content" type="overlay" side='start'>
+      <ion-content>
+        <div class="header">
+          <div class="content">
+            <ion-avatar>
+            <img src="../assets/logo2.PNG">
+          </ion-avatar>
+          <ion-list-header>{{auth.userData?.name}}</ion-list-header>
+          <ion-note>{{auth.userData?.email}}</ion-note>
+          </div>
+        </div>
+        
+        <ion-list id="inbox-list">
+
+          <div *ngFor="let p of appPages; let i = index">
+            <ion-menu-toggle auto-hide="false" *ngIf="p.url">
+              <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                [class.selected]="selectedIndex == i">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title |translate}}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+            <ion-item *ngIf="p.children?.length > 0" (click)="p.open = !p.open" lines="none" detail="false"
+              [class.selected]="selectedIndex == i">
+              <ion-icon slot="start" name="arrow-forward" *ngIf="!p.open"></ion-icon>
+              <ion-icon slot="start" name="arrow-down" *ngIf="p.open"></ion-icon>
+              <ion-label>{{ p.title |translate}}</ion-label>
+            </ion-item>
+            <div *ngIf="p.open" class="children">
+              <ion-menu-toggle auto-hide="false">
+                <ion-item *ngFor="let sub of p.children; let iSub = index" (click)="selectedIndex = i; SubselectedIndex = iSub" routerDirection="root" [routerLink]="[sub.url]" lines="none"
+                  detail="false" [class.selected]="selectedIndex == i && SubselectedIndex == iSub"  class="sub-item">
+                  <ion-icon slot="start" [name]="sub.icon"></ion-icon>
+                  <ion-label>{{ sub.title |translate}}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </div>
+          </div>
+          <ion-item style="--inner-border-width: 0 0 0px 0;" (click)="student.logOut()">
+            <ion-icon slot="start" name="arrow-forward"></ion-icon>
+            <ion-label>Log out</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- parent part -->
+        <!-- <ion-list id="labels-list">
+          <ion-row size="9">
+            <ion-col><ion-list-header>{{ 'MENU.child_header'  |translate}}</ion-list-header></ion-col>
+            
+            <ion-col size="2.5">
+              <ion-buttons>
+                <ion-button size="small"
+                (click)="presentAlertAdd()">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+                </ion-buttons>
+            </ion-col>
+          </ion-row>
+          <ion-menu-toggle auto-hide="false"  *ngFor="let child of children">
+            <ion-item lines="none" routerDirection="root" [routerLink]="['parents/chlidProfile']">
+              <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+              <ion-label>{{ child }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list> -->
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);">
+            <ion-icon name="globe"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="top">
+            <ion-fab-button (click)="changeLanguage('ar')" [style.--background]="language.selected == 'ar'? 'var(--ion-color-basecolor)': ''">
+              <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+              <b>عربى</b>
+            </ion-fab-button>
+            <ion-fab-button (click)="changeLanguage('en')" [style.--background]="language.selected == 'en'? 'var(--ion-color-basecolor)': ''">
+              <b>EN</b>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
