@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './new-homework.page.html',
   styleUrls: ['./new-homework.page.scss'],
 })
-export class NewHomeworkPage implements OnInit {
+export class NewHomeworkPage {
   homework: Homework [] = []
   allHomework: Homework [] = []
   isLoading: boolean = false
@@ -17,7 +17,7 @@ export class NewHomeworkPage implements OnInit {
   indexSelected : number = -1
   constructor(private student: StudentService, private nav: NavController) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.isLoading = true
     if(this.student.newHomeworksCash.length > 0){
       this.allHomework = this.student.newHomeworksCash

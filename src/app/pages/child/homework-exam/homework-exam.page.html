@@ -5,8 +5,60 @@
 </ion-header> -->
 
 <ion-content class="app-exam">
+  <!-- loading list -->
+  <div class="loading" *ngIf="isLoading">
+    <ion-list>
+      <div>
+        <!-- checkbox multiple choose -->
+        <div class="quetion">
+          <div class="header"><ion-skeleton-text animated></ion-skeleton-text></div>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+        </div>
+  
+        <!-- textarea essay -->
+        <div class="quetion">
+          <div class="header"><ion-skeleton-text animated></ion-skeleton-text></div>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+        </div>
+  
+        <!-- Picture question -->
+        <div class="quetion">
+          <div class="ion-text-center">
+            <ion-skeleton-text animated style="width: 200px;
+            height: 175px;
+            border-radius: 3px;
+            margin-inline-start: 22%;
+            margin-inline-end: 20%;">
+                </ion-skeleton-text>
+          </div>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+          <ion-item>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-item>
+        </div>
+
+      </div>
+    </ion-list>
+
+  </div>
+
   <!-- questions list -->
-    <div class="contentData">
+    <div class="contentData" *ngIf="!isLoading">
       <ion-list>
         <div *ngFor="let question of questions; index as questionIndex">
           <!-- checkbox multiple choose -->
@@ -138,17 +190,9 @@
     
       </ion-list>
     </div>
-  
-    <ion-menu-button vertical="bottom" horizontal="end" slot="fixed" shape="round">
-      <ion-fab>
-      <ion-fab-button size="small" style="--background: rgba(0, 0, 0, 0.3);">
-        <ion-icon name="menu"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-    </ion-menu-button>
   </ion-content>
   
-  <ion-footer *ngIf="this.questions.length > 0">
+  <ion-footer *ngIf="!isLoading && this.questions.length > 0">
     <ion-button expand="block" shape="round" style="--background: cadetblue;" (click)="submit()"
     [disabled]="isSubmitting">{{'EXAMPAGE.submit' |translate}}</ion-button>
   </ion-footer>

@@ -234,7 +234,7 @@ export class ExamPage implements OnInit {
         }else {
           this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
         }
-        this.nav.navigateRoot('child/myProfile')
+        this.nav.navigateRoot('child/newFinalExams')
       }else {
         this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.server_problem'))
         this.isSubmitting = false
@@ -252,7 +252,7 @@ export class ExamPage implements OnInit {
         }else {
           this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
         }
-        this.nav.navigateRoot('child/myProfile')
+        this.nav.navigateRoot('child/newRunningExams')
       }else {
         this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.server_problem'))
         this.isSubmitting = false

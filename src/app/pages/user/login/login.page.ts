@@ -41,6 +41,8 @@ export class LoginPage implements OnInit {
         this.auth.userData = response.user
         localStorage.setItem('ZEDNY_USERDAtA', JSON.stringify(this.auth.userData))
         if(response.user?.type == "student") this.navCtr.navigateRoot('/child/myProfile')
+      }else if(response.status && response.msg == "your account need to active check your mail inbox to active"){
+        this.ui.presentToast(this.translate.instant('TOASTMESSAGES.login_need_activation'))
       }else {
         this.ui.presentToast(this.translate.instant('TOASTMESSAGES.login_faild'))
       }

@@ -52,7 +52,9 @@
         "link": "Link exam",
         "linkHomework": "Link Homework",
         "computing": "Degrees computed",
-        "clickHere": "Click here"
+        "clickHere": "Click here",
+        "yes": "Yes",
+        "no": "No"
     },
 
     "PREVIOUSPAGE": {
@@ -142,6 +144,7 @@
         
         "please_wait": "Please wait....",
         "login_faild": "The data you entered is incorrect. Please check your email address and password , then try again !!",
+        "login_need_activation": "your account need to active check your mail inbox to active !!",
         "change_password_success": "Your password has been changed successfully !!",
         "change_password_failed": "Sorry, your password has not been changed. please try again later !",
         "change_password_required_alert": "You must enter your currnet, new and confirm new passwords to change currnet password!",

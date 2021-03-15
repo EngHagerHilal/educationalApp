@@ -101,7 +101,7 @@ export class StudentService {
   getHomework(id: number){
     let param = {
       "api_token": this.auth.userData.API_Token,
-      "exam_id": id
+      "homework_id": id
    }
    console.log('params: ', param)
    return this.http.post(environment.APIURL + 'homework/preview-homework', param)
@@ -109,7 +109,7 @@ export class StudentService {
   submitHomework(answersArray, examId){
     let param = {
       "api_token": this.auth.userData.API_Token,
-      "exam_id": examId,
+      "homework_id": examId,
       "questions": answersArray
    }
    console.log('params: ', param)

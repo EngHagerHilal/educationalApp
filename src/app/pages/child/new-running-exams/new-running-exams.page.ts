@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './new-running-exams.page.html',
   styleUrls: ['./new-running-exams.page.scss'],
 })
-export class NewRunningExamsPage implements OnInit {
+export class NewRunningExamsPage {
   exams: Exam [] = []
   allExams: Exam [] = []
   isLoading: boolean = false
@@ -17,7 +17,7 @@ export class NewRunningExamsPage implements OnInit {
   indexSelected : number = -1
   constructor(private student: StudentService, private nav: NavController) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.isLoading = true
     if(this.student.newRunningExamsCash.length > 0){
       this.allExams = this.student.newRunningExamsCash

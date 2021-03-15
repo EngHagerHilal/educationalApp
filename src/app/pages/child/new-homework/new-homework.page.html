@@ -83,12 +83,12 @@
       <div *ngIf="isOpen && indexSelected == i">
         <ion-row>
           <ion-col size="6">{{'COIMGPAGE.computing' |translate}}</ion-col>
-          <ion-col *ngIf="card.graded == 1">: Yes</ion-col>
-          <ion-col *ngIf="card.graded != 1">: No</ion-col>
+          <ion-col *ngIf="card.graded == 1">: {{'COIMGPAGE.yes' |translate}}</ion-col>
+          <ion-col *ngIf="card.graded != 1">: {{'COIMGPAGE.no' |translate}}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="5">{{'COIMGPAGE.linkHomework' |translate}}</ion-col>
-          <ion-col>: <a [routerLink]="['/child/homeworkExam', card.id]" routerDirection="forward">
+          <ion-col>: <a [routerLink]="['/child/homeworkExam', card.id]" routerDirection="root">
             {{'COIMGPAGE.clickHere' |translate}}</a></ion-col>
           <ion-col size="2.5">
             <a  (click)="isOpen = false; indexSelected = -1">

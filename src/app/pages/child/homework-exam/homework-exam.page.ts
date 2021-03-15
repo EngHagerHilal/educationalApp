@@ -4,6 +4,9 @@ import { Subject } from './../../../interfaces/subject';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { StudentService } from './../../../services/student.service';
+import { UiControllerFunService } from './../../../services/uiControllerFun.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-homework-exam',
@@ -17,10 +20,12 @@ export class HomeworkExamPage implements OnInit {
   isSubmitting: boolean = false
   imgUrl : string
   myId = null
-
-  constructor(private activatedRoute: ActivatedRoute, private student: StudentService) { }
+  isLoading : boolean = false
+  constructor(private activatedRoute: ActivatedRoute, private student: StudentService, private uiService: UiControllerFunService
+    , private alertController: AlertController, private translate: TranslateService, private nav: NavController) { }
 
   ngOnInit() {
+    this.isLoading = true
     this.imgUrl = environment.IMGURL
     this.myId = this.activatedRoute.snapshot.paramMap.get('id');
     console.log('myId sendned: ', this.myId)
@@ -29,6 +34,7 @@ export class HomeworkExamPage implements OnInit {
       if(response.status && response.exam.questions.length > 0){
         this.questions = response.exam.questions;
       }
+      this.isLoading = false
     })
   }
   setAnswer(questionIndex, id, answer, type, answer2?){
@@ -173,5 +179,37 @@ export class HomeworkExamPage implements OnInit {
       return element.id
     })
     console.log('clearAnswers: ', clearAnswers)
+    this.student.submitHomework(clearAnswers, this.myId).subscribe( (response:any)=>{
+      console.log('submitHomework response: ', response)
+      if(response.status && response.result){
+        this.presentAlertResult(response.result.studentResult, response.result.finalResult)
+      }else {
+        this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.server_problem'))
+      }
+    })
+  }
+  async presentAlertResult(studentResult, finalResult) {
+    let results = {
+      student : studentResult,
+      final : finalResult
+    }
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: this.translate.instant('SIMULATEPAGE.result_alert_header'),
+      message: this.translate.instant('SIMULATEPAGE.result_alert_message', results),
+      buttons: [
+        {
+          text: this.translate.instant('SIMULATEPAGE.num_alert_close'),
+          role: 'cancel',
+          cssClass: 'alert_Ok_button',
+          handler: (blah) => {
+            this.nav.navigateRoot('child/newHomework')
+            console.log('Confirm Cancel: blah');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

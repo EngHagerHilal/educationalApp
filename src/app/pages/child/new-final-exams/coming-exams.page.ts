@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './coming-exams.page.html',
   styleUrls: ['./coming-exams.page.scss'],
 })
-export class ComingExamsPage implements OnInit {
+export class ComingExamsPage {
   exams: Exam [] = []
   allExams: Exam [] = []
   isLoading: boolean = false
   constructor(private student: StudentService, private nav: NavController) {
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.isLoading = true
     if(this.student.newFinalExamsCash.length > 0){
       this.allExams = this.student.newFinalExamsCash

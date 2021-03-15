@@ -81,19 +81,19 @@
           
             <ion-item>
               <ion-icon name="person" slot="start"></ion-icon>
-              <ion-label>{{studentData.user?.name}}</ion-label>
+              <ion-label>{{studentData.user?.name |titlecase}}</ion-label>
             </ion-item>
             <ion-item>
               <ion-icon name="bookmarks" slot="start"></ion-icon>
-              <ion-label>{{studentData.school?.title}}</ion-label>
+              <ion-label>{{studentData.school?.title |titlecase}}</ion-label>
             </ion-item>
             <ion-item>
               <ion-icon name="aperture" slot="start"></ion-icon>
-              <ion-label>{{studentData.grade?.title}}</ion-label>
+              <ion-label>{{studentData.grade?.title |titlecase}}</ion-label>
             </ion-item>
             <ion-item>
               <ion-icon name="apps" slot="start"></ion-icon>
-              <ion-label>{{studentData.class?.title}}</ion-label>
+              <ion-label>{{studentData.class?.title |titlecase}}</ion-label>
             </ion-item>
             <ion-item>
               <ion-icon name="barcode" slot="start"></ion-icon>
