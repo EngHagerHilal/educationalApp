@@ -23,7 +23,7 @@ export class IsstudentguardService {
         }
       }else {
         resolve(false)
-        this.uiSer.presentToast(this.translate.instant('TOASTMESSAGES.isloginGuard'))
+        // this.uiSer.presentToast(this.translate.instant('TOASTMESSAGES.isloginGuard'))
         this.navCtr.navigateRoot('user/login')
       }
     })

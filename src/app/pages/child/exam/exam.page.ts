@@ -74,6 +74,9 @@ export class ExamPage implements OnInit {
             this.submit()
           }
         },1000)
+      }else {
+        this.nav.navigateRoot('child/newRunningExams')
+        this.uiService.presentToast('try again later')
       }
       this.isLoading = false
     })
@@ -258,5 +261,12 @@ export class ExamPage implements OnInit {
         this.isSubmitting = false
       }
     })
+  }
+  onFileChange(fileChangeEvent, file){
+    const photo = fileChangeEvent.target.files[0];
+    console.log('select files: ',{photo})
+    // Create a form data object using the FormData API
+    // Add the file that was just added to the form data
+    // console.log('path: ',fileChangeEvent.target.result)
   }
 }

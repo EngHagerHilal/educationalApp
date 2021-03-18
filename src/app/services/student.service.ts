@@ -134,6 +134,15 @@ export class StudentService {
    return this.http.post(environment.APIURL + 'exams-simulations/student-simulation-result', param)
   }
 // ================================== Other ======================================
+  uploadFile(filesArray, examId){
+    let param = {
+      "api_token": this.auth.userData.API_Token,
+      "exam_id": examId,
+      "filesUploaded": filesArray
+   }
+   console.log('params: ', param)
+   return this.http.post(environment.APIURL + 'attachment/upload', param)
+  }
   logOut(){
     this.auth.userData = {}
     this.studentDataCash = {}

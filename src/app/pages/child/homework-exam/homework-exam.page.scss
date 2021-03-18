@@ -58,11 +58,19 @@
                 font-size: 1.1rem;
                 padding-top: 7px;
                 padding-bottom: 7px;
+                p{
+                    margin: 0px;
+                }
             }
             .quetion{
                 background: lavender;
                 margin: 7px;
                 border-radius: 7px;
+                .attach{
+                    margin-top: -11px;
+                    margin-bottom: 15px;
+                    margin-inline-start: 15px;
+                }
                 .essay{
                     color: #95C11F;
                     font-weight: bold;
@@ -124,6 +132,9 @@
             padding-bottom: 0px !important;
         }
     }
+}
+ion-list.ios .quetion .attach{
+    margin-top: 0px !important;
 }
 ion-list.ios .quetion .desQuestion{
     margin-top: 0px !important;

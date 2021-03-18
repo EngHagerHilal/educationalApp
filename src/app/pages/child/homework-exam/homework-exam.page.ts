@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Question } from './../../../interfaces/question';
 import { Subject } from './../../../interfaces/subject';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,7 @@ import { AlertController, NavController } from '@ionic/angular';
   selector: 'app-homework-exam',
   templateUrl: './homework-exam.page.html',
   styleUrls: ['./homework-exam.page.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeworkExamPage implements OnInit {
   subjects: Subject[] = []
@@ -211,5 +212,15 @@ export class HomeworkExamPage implements OnInit {
     });
 
     await alert.present();
+  }
+  onFileChange(fileChangeEvent, file){
+    const photo = fileChangeEvent.target.files[0];
+    console.log('select files: ',[photo])
+    this.student.uploadFile([photo], this.myId).subscribe( (response: any)=>{
+      console.log('upload response: ', response)
+    })
+    // Create a form data object using the FormData API
+    // Add the file that was just added to the form data
+    // console.log('path: ',fileChangeEvent.target.result)
   }
 }
