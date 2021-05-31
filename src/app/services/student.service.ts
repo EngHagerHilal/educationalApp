@@ -19,6 +19,7 @@ export class StudentService {
   previousHomeworksCash: Homework [] = []
   studentDataCash: Student = {}
   constructor(private http: HttpClient, private auth: AuthService, private navCtr: NavController) { }
+  // octa-221@gmail.com 12345678
   // ================================== final exams ========================================
   getNewFinalExams(){
     let param = {
@@ -134,10 +135,12 @@ export class StudentService {
    return this.http.post(environment.APIURL + 'exams-simulations/student-simulation-result', param)
   }
 // ================================== Other ======================================
-  uploadFile(filesArray, examId){
+  uploadFile(filesArray, examId, resultId, type){
     let param = {
       "api_token": this.auth.userData.API_Token,
       "exam_id": examId,
+      "exam_type": type,
+      "exam_result_id": resultId,
       "filesUploaded": filesArray
    }
    console.log('params: ', param)

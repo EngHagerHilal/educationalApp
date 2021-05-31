@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   SIZEOFRELOADING : 5 ,
-  APIURL : 'https://phase.leen-eg.com/public/api/',
-  IMGURL : 'https://phase.leen-eg.com/public/'
+  APIURL : 'https://phase1con.leen-eg.com/public/api/',
+  IMGURL : 'https://phase1con.leen-eg.com/public/'
 };
 
 /*
-tarek.leen.com.eg
+phase.leen-eg.com
 zstudent202102@gmail.com
 Smart@3030
  * For easier debugging in development mode, you can import the following file

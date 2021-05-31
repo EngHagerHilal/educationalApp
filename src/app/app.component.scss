@@ -68,7 +68,7 @@ ion-menu.md ion-content {
 }
 
 ion-menu.md ion-list {
-  padding: 20px 0;
+  padding: 20px 0 0;
 }
 
 ion-menu.md ion-note {
@@ -94,6 +94,14 @@ ion-menu.md ion-list#inbox-list ion-list-header {
   font-weight: 600;
 
   min-height: 20px;
+}
+
+ion-menu.md ion-list#labels-list {
+  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+}
+
+ion-menu.md ion-list#labels-list ion-row {
+  margin-bottom: -20px;
 }
 
 ion-menu.md ion-list#labels-list ion-list-header {

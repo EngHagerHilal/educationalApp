@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="type == 0">{{'RESULTSSUBJECTS.headerparentstudentresults' |translate: subjectData}}</ion-title>
+    <ion-title *ngIf="type == 1">{{'RESULTSSUBJECTS.headerparentstudentsemester' |translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="grades" *ngIf="type == 0">
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.bounce' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.bounce">: {{subjectData?.bounce}}</ion-text>
+        <ion-text *ngIf="!subjectData?.bounce">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.attitude' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.Attitude">: {{subjectData?.Attitude}}</ion-text>
+        <ion-text *ngIf="!subjectData?.Attitude">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.homework' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.Homework">: {{subjectData?.Homework}}</ion-text>
+        <ion-text *ngIf="!subjectData?.Homework">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.attendance' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.Attendance">: {{subjectData?.Attendance}}</ion-text>
+        <ion-text *ngIf="!subjectData?.Attendance">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.running' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.secondaryExams">: {{subjectData?.secondaryExams}}</ion-text>
+        <ion-text *ngIf="!subjectData?.secondaryExams">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.final' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.FinalExam">: {{subjectData?.FinalExam}}</ion-text>
+        <ion-text *ngIf="!subjectData?.FinalExam">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.participation' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.Participation">: {{subjectData?.Participation}}</ion-text>
+        <ion-text *ngIf="!subjectData?.Participation">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.project' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.Project">: {{subjectData?.Project}}</ion-text>
+        <ion-text *ngIf="!subjectData?.Project">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.sum' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="subjectData?.studentResult">: {{subjectData?.studentResult}}</ion-text>
+        <ion-text *ngIf="!subjectData?.studentResult">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="grades" *ngIf="type == 1">
+    <ion-row *ngFor="let course of subjectsData">
+      <ion-col>
+        {{course?.title |titlecase}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="course?.studentResult">: {{course?.studentResult}}</ion-text>
+        <ion-text *ngIf="!course?.studentResult">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        {{'RESULTSSUBJECTS.sum' |translate}}
+      </ion-col>
+      <ion-col>
+        <ion-text *ngIf="totalGrades">: {{totalGrades}}</ion-text>
+        <ion-text *ngIf="!totalGrades">: {{'RESULTSSUBJECTS.not_assigned_parent' |translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

@@ -34,4 +34,11 @@ export class AuthService {
     console.log('params:',param)
     return this.http.post(environment.APIURL + 'student/get-student-data', param)
   }
+  getMyData(){
+    let param = {
+      "api_token": this.userData.API_Token
+    }
+    console.log('params:',param)
+    return this.http.post(environment.APIURL + 'user/me', param)
+  }
 }

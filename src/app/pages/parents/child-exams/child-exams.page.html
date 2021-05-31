@@ -1,0 +1,371 @@
+<ion-header *ngIf="myStudent?.name">
+  <ion-toolbar>
+    <ion-title *ngIf="type == 'coming'">{{'SEGMENTEXAMS.header_childExams_new' |translate: myStudent| titlecase}}</ion-title>
+    <ion-title *ngIf="type == 'previous'">{{'SEGMENTEXAMS.header_childExams_previous' |translate: myStudent| titlecase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="app-exams">
+
+  <ion-segment color="basecolor" [(ngModel)]="tab" slot="fixed">
+    <ion-segment-button value="running">
+      <ion-label><b>{{'SEGMENTEXAMS.running' |translate}}</b></ion-label>
+      <ion-icon name="newspaper"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="final">
+      <ion-label><b>{{'SEGMENTEXAMS.final' |translate}}</b></ion-label>
+      <ion-icon name="receipt"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="homework">
+      <ion-label><b>{{'SEGMENTEXAMS.homework' |translate}}</b></ion-label>
+      <ion-icon name="layers"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div>
+    <!-- skelton loading -->
+    <div *ngIf="isLoading" class="segmentcontent content">
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <div [ngSwitch]="tab" class="segmentcontent">
+        <div *ngSwitchCase="'running'">
+          <div *ngIf="type == 'coming'">
+            <div *ngFor="let card of newExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'runningExam'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="type == 'previous'">
+            <div *ngFor="let card of previousExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'runningExam'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'final'">
+          <div *ngIf="type == 'coming'">
+            <div *ngFor="let card of newExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'finalExam'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <!-- <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row> -->
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="type == 'previous'">
+            <div *ngFor="let card of previousExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'finalExam'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <!-- <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row> -->
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'homework'">
+          <div *ngIf="type == 'coming'">
+            <div *ngFor="let card of newExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'homework'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="type == 'previous'">
+            <div *ngFor="let card of previousExams; index as i" class="content">
+              <div *ngIf="card.exam?.type == 'homework'">
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.student_name' |translate}}</ion-col>
+                  <ion-col>: {{myStudent?.name |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'COIMGPAGE.subject_name' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.subjectTitle |titlecase}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4.5">{{'PREVIOUSPAGE.unit' |translate}} / {{'PREVIOUSPAGE.lesson' |translate}}</ion-col>
+                  <ion-col *ngIf="card.exam?.unitTitle && card.exam?.lessonTitle">: {{card.exam?.unitTitle |titlecase}} / {{card.exam?.lessonTitle |titlecase}}</ion-col>
+                  <ion-col *ngIf="!card.exam?.unitTitle && !card.exam?.lessonTitle">: {{'PREVIOUSPAGE.undetermined' |translate}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.from' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeStart |date: 'MMM d, y-HH:mma'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="2.5">{{'COIMGPAGE.to' |translate}}</ion-col>
+                  <ion-col>: {{card.exam?.timeEnd |date: 'MMM d, y-HH:mma'}}</ion-col>
+                  <ion-col *ngIf="indexSelected != i" size="2.5">
+                    <a (click)="isOpen = true; indexSelected = i">
+                      {{'PREVIOUSPAGE.more' |translate}}
+                      <ion-icon name="chevron-down-circle-outline" slot="end"></ion-icon>
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <div *ngIf="isOpen && indexSelected == i">
+                  <ion-row>
+                    <ion-col size="4.5">{{'COIMGPAGE.duration' |translate}}</ion-col>
+                    <ion-col class="lastRow">: {{card.exam?.examDuration}} {{'COIMGPAGE.min' |translate}}</ion-col>
+                    <ion-col size="2.5">
+                      <a (click)="isOpen = false; indexSelected = -1">
+                        {{'PREVIOUSPAGE.less' |translate}}
+                        <ion-icon name="chevron-up-circle-outline" slot="end"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);" (click)="this.nav.pop()">
+      <ion-icon name="chevron-down"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

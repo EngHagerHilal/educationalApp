@@ -9,14 +9,16 @@ import { ChlidProfilePageRoutingModule } from './chlid-profile-routing.module';
 
 import { ChlidProfilePage } from './chlid-profile.page';
 
+import { SubjectResultPage } from './../subject-result/subject-result.page';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+
     TranslateModule,
     ChlidProfilePageRoutingModule
   ],
-  declarations: [ChlidProfilePage]
+  declarations: [ChlidProfilePage, SubjectResultPage]
 })
 export class ChlidProfilePageModule {}

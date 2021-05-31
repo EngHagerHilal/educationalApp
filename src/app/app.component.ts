@@ -5,9 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './services/language.service';
 import { Component, OnInit } from '@angular/core';
 
-import { AlertController, Platform } from '@ionic/angular';
+import { Platform, AlertController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ParentService } from './services/parent.service';
+import { Student } from './interfaces/student';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-root',
@@ -61,27 +64,66 @@ export class AppComponent implements OnInit {
       open: false
     }
   ];
-  public children = ['Eyad', 'Elyn', 'Youns'];
+  public children: Student[] = [];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public alertController: AlertController,
+    private navCtrl: NavController,
     public language: LanguageService,
     private translate: TranslateService,
     private uiService: UiControllerFunService,
     public auth: AuthService,
-    public student: StudentService
+    public alertController: AlertController,
+    public student: StudentService,
+    public parent: ParentService,
+    private event: EventEmitter
   ) {
     this.initializeApp();
+    this.event.addListener('updateChildren' , ()=> {
+      this.children = this.parent.myChildrenCash
+      console.log('updateChildren fire', this.children)
+     })
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       if(localStorage.getItem('ZEDNY_USERDAtA')) {
         this.auth.userData = JSON.parse(localStorage.getItem('ZEDNY_USERDAtA'));
         console.log('user logged: ', this.auth.userData)
+        await this.auth.getMyData().subscribe( (response: any)=> {
+          console.log('getMyData response: ', response)
+          if(response.status && response.user){
+            response.user.API_Token = this.auth.userData.API_Token
+            response.user.password = this.auth.userData.password
+            this.auth.userData = response.user
+            localStorage.setItem('ZEDNY_USERDAtA', JSON.stringify(this.auth.userData))
+            console.log('after update mydata: ', JSON.parse(localStorage.getItem('ZEDNY_USERDAtA')))
+            
+          }else if(!response.status && response.errorNum == "login failed"){
+            this.parent.logOut()
+            this.student.logOut()
+            this.navCtrl.navigateRoot('/user/login')
+          }
+        })
+        if (this.auth.userData.type == 'student'){
+          this.navCtrl.navigateRoot('/child/myProfile')
+        }
+        if(this.auth.userData.type == 'parent') {
+          this.parent.getMyChildrenList().subscribe( (response: any)=> {
+            console.log('mychildren response: ', response)
+            if(response.status && response.child){
+              this.children = response.child
+            }else if(!response.status && response.errorNum == "login failed"){
+              this.parent.logOut()
+              this.navCtrl.navigateRoot('/user/login')
+            }else {
+              console.log('ERR..in child list')
+            }
+          })
+          this.navCtrl.navigateRoot('/parents/myProfile')
+        }
       }
       this.language.setInitialAppLanguage();
       this.splashScreen.hide();
@@ -112,13 +154,6 @@ export class AppComponent implements OnInit {
       }
     }
   }
-  async changeLanguage(lg : string){
-    await this.uiService.presentLoading(this.translate.instant('TOASTMESSAGES.please_wait'))
-    this.language.setLanguage(lg)
-    setTimeout(() => {
-      this.uiService.dissmisloading()
-    }, 500);
-  }
   async presentAlertAdd() {
     const alert = await this.alertController.create({
       cssClass: 'alert',
@@ -128,12 +163,12 @@ export class AppComponent implements OnInit {
         {
           name: 'code',
           type: 'text',
-          placeholder: this.translate.instant('MENU.adding_alert_code'),
+          placeholder: this.translate.instant('MENU.adding_alert_code')
           // cssClass: 'specialClass',
-          attributes: {
-            maxlength: 4,
-            inputmode: 'decimal'
-          }
+          // attributes: {
+          //   maxlength: 4,
+          //   inputmode: 'decimal'
+          // }
         }
       ],
       buttons: [
@@ -147,13 +182,44 @@ export class AppComponent implements OnInit {
         }, {
           text: this.translate.instant('MENU.adding_alert_add'),
           cssClass: 'alert_Ok_button',
-          handler: () => {
+          handler: (data) => {
             console.log('Confirm Ok');
+            if(!data.code || data.code == ''){
+              console.log('required')
+              this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.add_child_validation'))
+              this.presentAlertAdd()
+            }else{
+              this.addChild(data.code)
+            }
           }
         }
       ]
     });
 
     await alert.present();
+  }
+  addChild(code){
+    this.parent.addNewChild(code).subscribe( (response: any)=>{
+      console.log('add child response: ', response)
+      if(response.status && response.msg == "تم إضافة ولي أمر للطالب" && response.child){
+        console.log('add_child_successfully')
+        this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.add_child', response.child))
+        this.children.push(response.child)
+        this.parent.myChildrenCash = this.children
+      }else if(!response.status && response.msg == "الطالب غير موجود"){
+        this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.add_child_not_found'))
+      }else if(response.status && response.msg == "عفوا تم ربط ولي الأمر مع هذا الطالب من قبل "){
+        this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.add_child_available'))
+      }else {
+        this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.ERR_Not_Knowen'))
+      }
+    })
+  }
+  async changeLanguage(lg : string){
+    await this.uiService.presentLoading(this.translate.instant('TOASTMESSAGES.please_wait'))
+    this.language.setLanguage(lg)
+    setTimeout(() => {
+      this.uiService.dissmisloading()
+    }, 500);
   }
 }

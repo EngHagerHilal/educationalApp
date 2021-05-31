@@ -44,3 +44,12 @@ ion-menu-button {
 ion-skeleton-text{
     border-radius: 25px;
 }
+.subjectResults{
+    --width : 80%;
+    ion-toolbar ion-title{
+        display: contents;
+    }
+    .grades{
+        padding-inline-start: 14px;
+    }
+}

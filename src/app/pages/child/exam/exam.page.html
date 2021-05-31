@@ -66,8 +66,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <ion-item *ngFor="let choice of question.nestedQuestions[0]?.answers">
             <ion-checkbox  #checkInput color="success" slot="start" [value]="choice.id"
@@ -81,8 +81,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-             id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+             id="upload-photo" (change)="onFileChange($event, questionIndex, question.id)"/>
           </div>
           <ion-item *ngFor="let choice of question.nestedQuestions[0]?.answers">
             <ion-radio color="success" slot="start"></ion-radio>
@@ -95,8 +95,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
             <div *ngIf="question.canAttachFile == 1" class="attach">
               <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-              <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-              (change)="onFileChange($event, file.value)" id="upload-photo"/>
+              <input type="file" id="myfile" name="myfile" accept="image/*" #file
+              (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
             </div>
           <ion-radio-group #radioInput (ionChange)="setAnswer(questionIndex, question.id, radioInput.value , question.type)">
             <ion-row style="background: white;">
@@ -121,8 +121,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <ion-item>
             <ion-label position="stacked" class="essay">{{'EXAMPAGE.yourAnswer' |translate}}</ion-label>
@@ -136,8 +136,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <ion-item>
             <ion-label position="stacked" class="essay">{{'EXAMPAGE.exactWord' |translate}}</ion-label>
@@ -151,8 +151,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <ion-item *ngFor="let text of question.nestedQuestions[0]?.answers">
             <ion-label position="stacked" class="essay">{{text.hint_text}}</ion-label>
@@ -166,8 +166,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <div class="ion-text-center">
             <img src="{{imgUrl}}{{question.nestedQuestions[0]?.picture}}" style="width: 260px;
@@ -189,8 +189,8 @@
           <ion-list-header [innerHTML]="question.questionHeader"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <ion-item>
             <ion-label position="stacked" class="essay">{{'EXAMPAGE.wrong' |translate}}</ion-label>
@@ -209,8 +209,8 @@
           <ion-list-header [innerHTML]="question.text"></ion-list-header>
           <div *ngIf="question.canAttachFile == 1" class="attach">
             <!-- <label for="upload-photo">Browse...</label> (change)="onFileChange($event, file.value)" -->
-            <input type="file" id="myfile" name="myfile" accept="image/*,.pdf" #file
-            (change)="onFileChange($event, file.value)" id="upload-photo"/>
+            <input type="file" id="myfile" name="myfile" accept="image/*" #file
+            (change)="onFileChange($event, questionIndex, question.id)" id="upload-photo"/>
           </div>
           <p class="sentences">
             <span *ngFor="let qu of question?.nestedQuestions; index as i">

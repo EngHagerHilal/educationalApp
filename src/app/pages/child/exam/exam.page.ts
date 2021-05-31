@@ -22,6 +22,9 @@ export class ExamPage implements OnInit {
   isLoading: boolean = false
   isTimeOut: boolean = false
   isSubmitting: boolean = false
+  imageUrl;
+  converted_image;
+  filesUploaded: any[] = []
   constructor(private activatedRoute: ActivatedRoute, private student: StudentService, private uiService: UiControllerFunService,
     private translate: TranslateService, private nav: NavController) { }
 
@@ -31,8 +34,8 @@ export class ExamPage implements OnInit {
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.imgUrl = environment.IMGURL
     console.log('data sendned: ',{id: this.myId, type: this.type})
-    if(this.type == 'final') this.getFinalExamDetails()
-    else if (this.type == 'running') this.getRunningExamDetails()
+    if(this.type == 'finalExam') this.getFinalExamDetails()
+    else if (this.type == 'runningExam') this.getRunningExamDetails()
   }
 
   getFinalExamDetails(){
@@ -219,27 +222,31 @@ export class ExamPage implements OnInit {
   }
   submit(){
     console.log('answers: ', this.answers)
+    this.uiService.presentLoading()
     const clearAnswers : any[] = this.answers.filter( function clear(element) {
       return element.id
     })
     console.log('clearAnswers: ', clearAnswers)
-    if(this.type === 'final') this.submitFinalExam(clearAnswers)
-    else if (this.type === 'running') { this.submitRunningExam(clearAnswers) }
+    if(this.type === 'finalExam') this.submitFinalExam(clearAnswers)
+    else if (this.type === 'runningExam') { this.submitRunningExam(clearAnswers) }
   }
   submitFinalExam(answers){
     this.isSubmitting = true
     console.log('time: ',this.examDuration)
     this.student.submitFinalExam(answers, this.myId).subscribe( (response: any)=> {
       console.log('submitFinal response: ', response)
-      if(response.status){
+      if(response.status && response.result.id){
         if(this.isTimeOut){
           this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.timeOut_exam'))
         }else {
-          this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
+          const clearFiles : any[] = this.filesUploaded.filter( function clear(element) {
+            return element.image
+          })
+          this.sendImages(clearFiles, response.result?.id)
         }
-        this.nav.navigateRoot('child/newFinalExams')
       }else {
         this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.server_problem'))
+        this.uiService.dissmisloading()
         this.isSubmitting = false
       }
     })
@@ -249,22 +256,51 @@ export class ExamPage implements OnInit {
     console.log('time: ',this.examDuration)
     this.student.submitRunningExam(answers, this.myId).subscribe( (response: any)=> {
       console.log('submitRunning response: ', response)
-      if(response.status && response.result){
+      if(response.status && response.result.id){
         if(this.isTimeOut){
           this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.timeOut_exam'))
         }else {
-          this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
+          const clearFiles : any[] = this.filesUploaded.filter( function clear(element) {
+            return element.image
+          })
+          this.sendImages(clearFiles, response.result?.id)
         }
-        this.nav.navigateRoot('child/newRunningExams')
       }else {
         this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.server_problem'))
         this.isSubmitting = false
       }
     })
   }
-  onFileChange(fileChangeEvent, file){
+  sendImages(imagesList, resultID){
+    if(imagesList.length > 0){
+      this.student.uploadFile(imagesList, this.myId, resultID, this.type).subscribe( (response: any)=>{
+        console.log('uploadFiles response: ', response)
+        if(response.status && response.msg == "files Attached"){
+          this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
+        }else {
+          this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_answers_only'))
+        }
+        this.uiService.dissmisloading()
+        this.nav.navigateRoot('child/newRunningExams')
+      })
+    }else{
+      this.uiService.dissmisloading()
+      this.uiService.presentToast(this.translate.instant('TOASTMESSAGES.submite_exam'))
+      this.nav.navigateRoot('child/newRunningExams')
+    }
+  }
+  onFileChange(fileChangeEvent, index, questionId){
     const photo = fileChangeEvent.target.files[0];
     console.log('select files: ',{photo})
+    let reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.imageUrl = e.target.result;
+      this.converted_image = "data:image/jpeg;base64,"+this.imageUrl;
+      this.filesUploaded[index] = {question_id: questionId, image: this.converted_image}
+      console.log('array filesUploaded', this.filesUploaded)
+    };
+    reader.readAsDataURL(photo);
     // Create a form data object using the FormData API
     // Add the file that was just added to the form data
     // console.log('path: ',fileChangeEvent.target.result)

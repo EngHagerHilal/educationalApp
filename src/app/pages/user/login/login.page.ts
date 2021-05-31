@@ -5,6 +5,8 @@ import { MenuController, NavController } from '@ionic/angular';
 import { User } from './../../../interfaces/user';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { ParentService } from './../../../services/parent.service';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginPage implements OnInit {
   form :User = {}
   isClicked :boolean = false
   constructor(private auth: AuthService, private navCtr: NavController, private ui: UiControllerFunService,
-    private translate: TranslateService, private menuCtrl: MenuController, public language: LanguageService) {
+    private translate: TranslateService, private menuCtrl: MenuController, public language: LanguageService,
+    public parent: ParentService, private event: EventEmitter) {
   }
 
   ngOnInit() {
@@ -41,6 +44,18 @@ export class LoginPage implements OnInit {
         this.auth.userData = response.user
         localStorage.setItem('ZEDNY_USERDAtA', JSON.stringify(this.auth.userData))
         if(response.user?.type == "student") this.navCtr.navigateRoot('/child/myProfile')
+        else if(response.user?.type == "parent") {
+          this.parent.getMyChildrenList().subscribe( (response: any)=> {
+            console.log('mychildren response: ', response)
+            if(response.status && response.child){
+              this.parent.myChildrenCash = response.child
+              this.event.emit('updateChildren')
+            }else{
+              console.log('ERR..in child list')
+            }
+          })
+          this.navCtr.navigateRoot('/parents/myProfile')
+        }
       }else if(response.status && response.msg == "your account need to active check your mail inbox to active"){
         this.ui.presentToast(this.translate.instant('TOASTMESSAGES.login_need_activation'))
       }else {

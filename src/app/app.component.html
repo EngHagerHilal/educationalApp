@@ -12,7 +12,8 @@
           </div>
         </div>
         
-        <ion-list id="inbox-list">
+        <!-- student part -->
+        <ion-list id="inbox-list" *ngIf="auth.userData?.type == 'student'">
 
           <div *ngFor="let p of appPages; let i = index">
             <ion-menu-toggle auto-hide="false" *ngIf="p.url">
@@ -47,7 +48,7 @@
         </ion-list>
 
         <!-- parent part -->
-        <!-- <ion-list id="labels-list">
+        <ion-list id="labels-list" *ngIf="auth.userData?.type == 'parent'">
           <ion-row size="9">
             <ion-col><ion-list-header>{{ 'MENU.child_header'  |translate}}</ion-list-header></ion-col>
             
@@ -61,12 +62,17 @@
             </ion-col>
           </ion-row>
           <ion-menu-toggle auto-hide="false"  *ngFor="let child of children">
-            <ion-item lines="none" routerDirection="root" [routerLink]="['parents/chlidProfile']">
+            <ion-item lines="none" routerDirection="forward" [routerLink]="['parents/chlidProfile', child.pivot.student_id]">
               <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-              <ion-label>{{ child }}</ion-label>
+              <ion-label>{{ child.name | titlecase}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list> -->
+        </ion-list>
+        <ion-item style="--inner-border-width: 0 0 0px 0;" (click)="parent.logOut()"
+        *ngIf="auth.userData?.type == 'parent'">
+          <ion-icon slot="start" name="arrow-forward"></ion-icon>
+          <ion-label>تسجيـل الخـروج</ion-label>
+        </ion-item>
 
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
           <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);">
@@ -100,7 +106,7 @@
           </div>
         </div>
         
-        <ion-list id="inbox-list">
+        <ion-list id="inbox-list" *ngIf="auth.userData?.type == 'student'">
 
           <div *ngFor="let p of appPages; let i = index">
             <ion-menu-toggle auto-hide="false" *ngIf="p.url">
@@ -134,7 +140,7 @@
         </ion-list>
 
         <!-- parent part -->
-        <!-- <ion-list id="labels-list">
+        <ion-list id="labels-list" *ngIf="auth.userData?.type == 'parent'">
           <ion-row size="9">
             <ion-col><ion-list-header>{{ 'MENU.child_header'  |translate}}</ion-list-header></ion-col>
             
@@ -148,12 +154,17 @@
             </ion-col>
           </ion-row>
           <ion-menu-toggle auto-hide="false"  *ngFor="let child of children">
-            <ion-item lines="none" routerDirection="root" [routerLink]="['parents/chlidProfile']">
+            <ion-item lines="none" routerDirection="forward" [routerLink]="['parents/chlidProfile' , child.id]">
               <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-              <ion-label>{{ child }}</ion-label>
+              <ion-label>{{ child.name | titlecase}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list> -->
+        </ion-list>
+        <ion-item style="--inner-border-width: 0 0 0px 0;" (click)="parent.logOut()"
+        *ngIf="auth.userData?.type == 'parent'">
+          <ion-icon slot="start" name="arrow-forward"></ion-icon>
+          <ion-label>Log out</ion-label>
+        </ion-item>
 
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
           <ion-fab-button size="small" class="buttonSave" style="--background: rgba(0, 0, 0, 0.3);">

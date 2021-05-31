@@ -10,7 +10,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'user/login', loadChildren: () => import('./pages/user/login/login.module').then( m => m.LoginPageModule), canActivate: [IsloginguardService]},
-  { path: 'parents/chlidProfile', loadChildren: () => import('./pages/parents/chlid-profile/chlid-profile.module').then( m => m.ChlidProfilePageModule) },
   { path: 'child/myProfile', loadChildren: () => import('./pages/child/my-profile/my-profile.module').then( m => m.MyProfilePageModule), canActivate: [IsstudentguardService]},
   { path: 'child/previousFinalExams', loadChildren: () => import('./pages/child/previous-final-exams/previous-exams.module').then( m => m.PreviousExamsPageModule), canActivate: [IsstudentguardService]},
   { path: 'child/newFinalExams', loadChildren: () => import('./pages/child/new-final-exams/coming-exams.module').then( m => m.ComingExamsPageModule), canActivate: [IsstudentguardService]},
@@ -21,7 +20,10 @@ const routes: Routes = [
   { path: 'child/newHomework', loadChildren: () => import('./pages/child/new-homework/new-homework.module').then( m => m.NewHomeworkPageModule), canActivate: [IsstudentguardService] },
   { path: 'child/resultOfSubjects', loadChildren: () => import('./pages/child/result-of-subjects/result-of-subjects.module').then( m => m.ResultOfSubjectsPageModule), canActivate: [IsstudentguardService] },
   { path: 'child/simulateExam', loadChildren: () => import('./pages/child/simulate-exam/simulate-exam.module').then( m => m.SimulateExamPageModule), canActivate: [IsstudentguardService] },
-  { path: 'child/homeworkExam/:id', loadChildren: () => import('./pages/child/homework-exam/homework-exam.module').then( m => m.HomeworkExamPageModule) }
+  { path: 'child/homeworkExam/:id', loadChildren: () => import('./pages/child/homework-exam/homework-exam.module').then( m => m.HomeworkExamPageModule) },
+  { path: 'parents/myProfile', loadChildren: () => import('./pages/parents/my-profile/my-profile.module').then( m => m.MyProfilePageModule) },
+  { path: 'parents/chlidProfile/:id', loadChildren: () => import('./pages/parents/chlid-profile/chlid-profile.module').then( m => m.ChlidProfilePageModule) },
+  { path: 'parents/childexams/:id/:type', loadChildren: () => import('./pages/parents/child-exams/child-exams.module').then( m => m.ChildExamsPageModule) }
 ];
 
 @NgModule({

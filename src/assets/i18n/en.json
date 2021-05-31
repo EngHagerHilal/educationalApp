@@ -23,6 +23,15 @@
         "adding_alert_cancel": "Cancel"
     },
 
+    "SEGMENTEXAMS": {
+        "running": "Running",
+        "final": "Final",
+        "homework": "Homework",
+
+        "header_childExams_new": "{{name}}'s coming exams",
+        "header_childExams_previous": "{{name}}'s previous exams"
+    },
+
     "LOGIN":{
         "email" : "Email address",
         "userName" : "User name",
@@ -43,14 +52,16 @@
         "header": "New final exams list",
         "header_running": "New running exams list",
         "header_home": "New homeworks list",
-        "card_content": "An <b>{{title}}</b> will be 12-2-2021 at 18:00 to 18:00. you can enter from 17:55 to quiz URL <a href='h'>exam@test.com</a> . be careful of the time and good luck for all, insha`allah.",
+        "header_MyProfileParent": "Latest new exams",
         "subject_name": "Subject name",
+        "student_name": "Student name",
         "from": "From",
         "to": "To",
         "duration": "Duration",
         "min": "min",
         "link": "Link exam",
         "linkHomework": "Link Homework",
+        "type": "Exam type",
         "computing": "Degrees computed",
         "clickHere": "Click here",
         "yes": "Yes",
@@ -68,6 +79,7 @@
         "time_spent": "Time spent",
         "lesson": "Lesson",
         "unit": "Unit",
+        "undetermined": "Undetermined",
         "more": "more",
         "less": "less"
     },
@@ -86,9 +98,10 @@
     "CHILDPROFILE": {
         "coming": "Coming",
         "previous": "Previous",
-
+        "total": "(Total grades)",
         "info_header": "General Information",
-        "courses_header": "Courses list"
+        "courses_header": "Courses list",
+        "courses_grades_header": "Courses grades details"
     },
 
     "MYPROFILE": {
@@ -107,6 +120,8 @@
         "result_title": "Results of: all subjects, in current semester",
         "butt_preview": "Preview",
 
+        "headerparentstudentresults": "{{title}} grades",
+        "headerparentstudentsemester": "Total semester grades",
         "bounce": "Bounce",
         "attitude": "Attitude ratio",
         "homework": "Homework",
@@ -116,7 +131,8 @@
         "sum": "Sum",
         "participation": "Participation",
         "project": "Project",
-        "not_assigned": "Not assigned yet"
+        "not_assigned": "Not assigned yet",
+        "not_assigned_parent": "Not assigned"
     },
 
     "SIMULATEPAGE": {
@@ -156,6 +172,13 @@
         "server_problem": "Sorry, we have some updates in system, please try again later !!",
 
         "submite_exam": "Your answers have been successfully sent, we wish you success !!",
-        "timeOut_exam": "The time set for the exam has expired, your answers have been successfully sent until now. We wish you success !!"
+        "submite_answers_only": "Your answers have been successfully sent, But there might have been a problem sending the pictures!!",
+        "timeOut_exam": "The time set for the exam has expired, your answers have been successfully sent until now. We wish you success !!",
+
+        "add_child": "You have successfully added {{name}} as a new child to your children list !!",
+        "add_child_not_found": "The new child was not found !!",
+        "add_child_validation": "Child code is required to add a new child !!",
+        "add_child_available": "Sorry, this student has been linked before !!",
+        "ERR_Not_Knowen": "Sorry, an error occurred if we were unable to add the child !!"
     }
 }

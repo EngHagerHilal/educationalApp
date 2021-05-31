@@ -14,6 +14,7 @@ export interface Subject {
     semester_id?: number
     title?: string
     updated_at?: Date | string
-
+    studentResult?: number
+    
     open?: false
 }
